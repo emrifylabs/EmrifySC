@@ -85,6 +85,7 @@ contract HITT is ERC20,Ownable {
         hodlerContract = new Hodler(hodlerPoolTokens, msg.sender); 
         balances[msg.sender] = balances[msg.sender].sub(hodlerPoolTokens);
         balances[address(hodlerContract)] = hodlerPoolTokens; // giving the total hodler bonus to the HODLER contract to distribute.        
+        assert(totalSupply1 == (200000000 * 10 ** uint256(decimals)).add(length.mul(40000 * 10 ** uint256(decimals))));
         emit Transfer( msg.sender, address(hodlerContract), hodlerPoolTokens );
     }
     
@@ -115,7 +116,7 @@ contract HITT is ERC20,Ownable {
             require(hodlerContract.invalidate(_from));
         }
         emit Transfer(_from, _to, _value);
-        assert(_value == balances[_to].sub(prevBalTo) );
+        assert(_value == balances[_to].sub(prevBalTo));
         assert(_value == prevBalFrom.sub(balances[_from]));
         return true;
     }
