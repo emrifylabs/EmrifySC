@@ -110,7 +110,7 @@ contract Hodler is Ownable {
         TOKEN_HODL_9M = (_stake*30)/100;
         TOKEN_HODL_12M = (_stake*475)/1000;
         tokenContract = ERC20(msg.sender);
-        hodlerTimeStart = block.timestamp.add(45 days) ; // These 45 days shall be used to distribute the tokens to the contributors of the ICO
+        hodlerTimeStart = block.timestamp.add(365 days) ; // These 45 days shall be used to distribute the tokens to the contributors of the ICO
         admin = _admin;
     }
     

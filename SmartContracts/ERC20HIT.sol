@@ -45,10 +45,8 @@ contract HITT is ERC20,Ownable {
     * This is HODL pool. It shall be distributed for the whole year as a 
     * HODL bonus among the people who shall not move their ICO tokens for 
     * 3,6,9 and 12 months respectively. 
-    * Setting it 200 Million Temporarily. 
-    * We shall know the exact value when we shall be done with the ICO period.
     */
-    uint256 public constant hodlerPoolTokens = 200000000 * 10 ** uint256(decimals) ; 
+    uint256 public constant hodlerPoolTokens = 15000000 * 10 ** uint256(decimals) ; 
     Hodler public hodlerContract;
 
     /*
@@ -61,32 +59,32 @@ contract HITT is ERC20,Ownable {
     */
     constructor() public {
         uint8 i=0 ;
-        balances[msg.sender] = totalSupply1;
-        emit Transfer(0x0,msg.sender,totalSupply1);
+        balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6] = totalSupply1;
+        emit Transfer(0x0,0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6,totalSupply1);
         uint256 length = founders.length ;
         for( ; i < length ; i++ ){
             /*
             * These 45 days shall be used to distribute the tokens to the contributors of the ICO.
             */
-            lockTimes[founders[i]] = uint64(block.timestamp + 45 days + tokenLockTime );
+            lockTimes[founders[i]] = uint64(block.timestamp + 365 days + tokenLockTime );
         }
         length = advisors.length ;
         for( i=0 ; i < length ; i++ ){
-            lockTimes[advisors[i]] = uint64(block.timestamp +  45 days + tokenLockTime); 
-            balances[msg.sender] = balances[msg.sender].sub(40000 * 10 ** uint256(decimals));
+            lockTimes[advisors[i]] = uint64(block.timestamp +  365 days + tokenLockTime); 
+            balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6] = balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6].sub(40000 * 10 ** uint256(decimals));
             balances[advisors[i]] = 40000 * 10 ** uint256(decimals) ;
-            emit Transfer( msg.sender, advisors[i], 40000 * 10 ** uint256(decimals) );
+            emit Transfer( 0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6, advisors[i], 40000 * 10 ** uint256(decimals) );
         }
-        balances[msg.sender] = balances[msg.sender].sub(200000000 * 10 ** uint256(decimals));
-        balances[founders[0]] = 170000000 * 10 ** uint256(decimals) ;
+        balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6] = balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6].sub(130000000 * 10 ** uint256(decimals));
+        balances[founders[0]] = 100000000 * 10 ** uint256(decimals) ;
         balances[founders[1]] =  30000000 * 10 ** uint256(decimals) ; 
-        emit Transfer( msg.sender, founders[0], 170000000 * 10 ** uint256(decimals) );
-        emit Transfer( msg.sender, founders[1],  30000000 * 10 ** uint256(decimals) );
+        emit Transfer( 0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6, founders[0], 100000000 * 10 ** uint256(decimals) );
+        emit Transfer( 0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6, founders[1],  30000000 * 10 ** uint256(decimals) );
         hodlerContract = new Hodler(hodlerPoolTokens, msg.sender); 
-        balances[msg.sender] = balances[msg.sender].sub(hodlerPoolTokens);
+        balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6] = balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6].sub(hodlerPoolTokens);
         balances[address(hodlerContract)] = hodlerPoolTokens; // giving the total hodler bonus to the HODLER contract to distribute.        
-        assert(totalSupply1 == balances[msg.sender].add(hodlerPoolTokens.add((200000000 * 10 ** uint256(decimals)).add(length.mul(40000 * 10 ** uint256(decimals))))));
-        emit Transfer( msg.sender, address(hodlerContract), hodlerPoolTokens );
+        assert(totalSupply1 == balances[0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6].add(hodlerPoolTokens.add((130000000 * 10 ** uint256(decimals)).add(length.mul(40000 * 10 ** uint256(decimals))))));
+        emit Transfer( 0x60Bf75BB47cbD4cD1eeC7Cd48eab1F16Ebe822c6, address(hodlerContract), hodlerPoolTokens );
     }
     
 
